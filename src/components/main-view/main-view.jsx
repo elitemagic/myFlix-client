@@ -4,15 +4,19 @@ import { MovieCard } from "../movie-card/movie-card";
 
 import { MovieView } from "../movie-view/movie-view";
 
+import { LoginView } from "../login-view/login-view";
+
 
 
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
 
-
   const [selectedMovie, setSelectedMovie] = useState(null);
 
+  const [user, setUser] = useState (null);
+
+  const [token, setToken] = useState(null);
   
   useEffect(() => {
     fetch("https://my-flix-service.onrender.com/movies")
@@ -33,10 +37,22 @@ export const MainView = () => {
     });
   }, []);
 
+ 
+  if (!user) {
+    return (
+      <LoginView
+        onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }}
+      />
+    );
+  }
+
   if (selectedMovie) {
     const similarMovies = movies.filter(movie => movie.genre === selectedMovie.genre && movie.title !== selectedMovie.title)
     return (
-      <div>
+      <>
       <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
       <hr />
       <h2>Similar Movies:</h2>
@@ -44,18 +60,34 @@ export const MainView = () => {
         {similarMovies.map(movie => (
           <MovieCard key={movie.id} movie={movie} onMovieClick={setSelectedMovie} />
         ))}
-      </div>
+        
+        <button style = {{ marginTop: "20px" }}
+        onClick={() => {
+          setUser(null);
+        }}
+        >Logout</button>
+      </>
     );
   }
   
   
 
   if (movies.length === 0) {
-    return <div>The list is empty</div>;
+    return (
+      <>
+      <button
+      onClick={() => {
+        setUser(null);
+      }}
+      >Logout</button>
+      <div>The list is empty</div>;
+      </>
+    );
   }
 
   return (
     <div>
+      
       {movies.map((movie) => (
         <MovieCard 
           key={movie.id}
@@ -65,6 +97,13 @@ export const MainView = () => {
           }}
         />
       ))}
+      <button style = {{ marginTop: "20px" }}
+      onClick={() => {
+        setUser(null);
+      }}
+      >
+      Logout
+      </button>
     </div>
   );
 };

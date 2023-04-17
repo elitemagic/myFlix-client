@@ -2953,9 +2953,9 @@ $RefreshReg$(_c, "App");
 }
 },{"react/jsx-dev-runtime":"iTorj","./components/main-view/main-view":"4gflv","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I","react-dom/client":"lOjBx"}],"iTorj":[function(require,module,exports) {
 "use strict";
-module.exports = require("8e064748f7be017");
+module.exports = require("9581121c68c343b1");
 
-},{"8e064748f7be017":"48uCM"}],"48uCM":[function(require,module,exports) {
+},{"9581121c68c343b1":"48uCM"}],"48uCM":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-dev-runtime.development.js
@@ -2967,7 +2967,7 @@ module.exports = require("8e064748f7be017");
  */ "use strict";
 (function() {
     "use strict";
-    var React = require("ea58a4572a7f2e8e");
+    var React = require("58abb485468bb26e");
     // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
@@ -3786,11 +3786,11 @@ module.exports = require("8e064748f7be017");
     exports.jsxDEV = jsxDEV$1;
 })();
 
-},{"ea58a4572a7f2e8e":"21dqq"}],"21dqq":[function(require,module,exports) {
+},{"58abb485468bb26e":"21dqq"}],"21dqq":[function(require,module,exports) {
 "use strict";
-module.exports = require("befe33d865bb6817");
+module.exports = require("bea99a7fc630ccef");
 
-},{"befe33d865bb6817":"6YvXz"}],"6YvXz":[function(require,module,exports) {
+},{"bea99a7fc630ccef":"6YvXz"}],"6YvXz":[function(require,module,exports) {
 /**
  * @license React
  * react.development.js
@@ -5699,19 +5699,19 @@ const MainView = ()=>{
                     onBackClick: ()=>setSelectedMovie(null)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 62,
+                    lineNumber: 40,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 63,
+                    lineNumber: 41,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Similar Movies:"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 64,
+                    lineNumber: 42,
                     columnNumber: 7
                 }, undefined),
                 similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -5719,13 +5719,13 @@ const MainView = ()=>{
                         onMovieClick: setSelectedMovie
                     }, movie.id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 67,
+                        lineNumber: 45,
                         columnNumber: 11
                     }, undefined))
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 61,
+            lineNumber: 39,
             columnNumber: 7
         }, undefined);
     }
@@ -5733,7 +5733,7 @@ const MainView = ()=>{
         children: "The list is empty"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 76,
+        lineNumber: 54,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -5744,16 +5744,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 82,
+                lineNumber: 60,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 80,
+        lineNumber: 58,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "4RzzPqdFy+omBNQtbJYhGcFmSiI=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -5770,17 +5770,6 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$67b2.prelude(module);
 
 try {
-// export const MovieCard = ({ movie, onMovieClick}) => {
-//   return (
-//     <div
-//       onClick={() => {
-//         onMovieClick(movie);
-//       }}
-//     >
-//       {movie.title}
-//     </div>
-//   );
-// };
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
@@ -5793,7 +5782,7 @@ const MovieCard = ({ movie , onMovieClick  })=>{
         children: movie.title
     }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 16,
+        lineNumber: 3,
         columnNumber: 5
     }, undefined);
 };
@@ -6110,7 +6099,7 @@ $RefreshReg$(_c, "MovieView");
 }
 },{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"eO949","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I"}],"lJZlQ":[function() {},{}],"lOjBx":[function(require,module,exports) {
 "use strict";
-var m = require("c3845861e6b85db1");
+var m = require("368322c89587a9b2");
 var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -6129,7 +6118,7 @@ exports.hydrateRoot = function(c, h, o) {
     }
 };
 
-},{"c3845861e6b85db1":"j6uA9"}],"j6uA9":[function(require,module,exports) {
+},{"368322c89587a9b2":"j6uA9"}],"j6uA9":[function(require,module,exports) {
 "use strict";
 function checkDCE() {
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") return;
@@ -6143,9 +6132,9 @@ function checkDCE() {
     // a false positive.
     throw new Error("^_^");
 }
-module.exports = require("dbf5bfede9c20417");
+module.exports = require("fd2af5cde6c44598");
 
-},{"dbf5bfede9c20417":"3iA9v"}],"3iA9v":[function(require,module,exports) {
+},{"fd2af5cde6c44598":"3iA9v"}],"3iA9v":[function(require,module,exports) {
 /**
  * @license React
  * react-dom.development.js
@@ -6158,8 +6147,8 @@ module.exports = require("dbf5bfede9c20417");
 (function() {
     "use strict";
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
-    var React = require("378fd1defa6ee9b");
-    var Scheduler = require("7a62762436cb84ed");
+    var React = require("58b60fb231219188");
+    var Scheduler = require("428a4d64033b5fb2");
     var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     var suppressWarning = false;
     function setSuppressWarning(newSuppressWarning) {
@@ -27130,11 +27119,11 @@ module.exports = require("dbf5bfede9c20417");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{"378fd1defa6ee9b":"21dqq","7a62762436cb84ed":"juvHo"}],"juvHo":[function(require,module,exports) {
+},{"58b60fb231219188":"21dqq","428a4d64033b5fb2":"juvHo"}],"juvHo":[function(require,module,exports) {
 "use strict";
-module.exports = require("835d5ab2a68afecd");
+module.exports = require("c73aa8de85f7f967");
 
-},{"835d5ab2a68afecd":"RqdIf"}],"RqdIf":[function(require,module,exports) {
+},{"c73aa8de85f7f967":"RqdIf"}],"RqdIf":[function(require,module,exports) {
 /**
  * @license React
  * scheduler.development.js
