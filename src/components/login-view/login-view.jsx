@@ -1,45 +1,45 @@
 import { useState, React } from "react";
 
-export const LoginView = ({ onLoggedIn}) => {
+export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState(""); 
 
+
+    // validation of user login
   const handleSubmit = (event) => {
+    // To prevent the default behavior of the form which is to reload the entire page
     event.preventDefault();
 
     const data = {
-      access: username,
-      secret: password
+      Username: username,
+      Password: password
     };
 
     fetch("https://my-flix-service.onrender.com/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
-})
-.then((response) => {
-  if (response.ok) {
-    onLoggedIn(username);
-  } else {
-    response.text().then((text) => {
-      const error = JSON.parse(text);
-      console.log(error.message);
-      alert("Login failed");
-    }).catch((error) => {
-      console.log(error.message);
-      alert("An error occurred while logging in");
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Login response: ", data);
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
+        onLoggedIn(data.user, data.token);
+      }else{
+        alert("No such user");
+      }
+    })
+    .catch((e) => {
+      alert("Something went wrong");
     });
-  }
-})
-.catch((error) => {
-  console.log(error.message);
-  alert("An error occurred while logging in");
-});
   };
-
-
+  
+     
+// login form with submit button
   return (
     <form onSubmit={handleSubmit}>
       <label>

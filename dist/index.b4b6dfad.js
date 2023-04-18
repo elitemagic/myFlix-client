@@ -27287,12 +27287,20 @@ var _loginView = require("../login-view/login-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
+    const storedToken = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     const [user, setUser] = (0, _react.useState)(null);
     const [token, setToken] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
-        fetch("https://my-flix-service.onrender.com/movies").then((response)=>response.json()).then((data)=>{
+        fetch("https://my-flix-service.onrender.com/movies");
+        if (!token) return;
+        fetch("https://my-flix-service.onrender.com/movies", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.map((movie)=>{
                 return {
                     id: movie._id,
@@ -27305,7 +27313,9 @@ const MainView = ()=>{
             });
             setMovies(moviesFromApi);
         });
-    }, []);
+    }, [
+        token
+    ]);
     if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
         onLoggedIn: (user, token)=>{
             setUser(user);
@@ -27313,7 +27323,7 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 43,
+        lineNumber: 54,
         columnNumber: 7
     }, undefined);
     if (selectedMovie) {
@@ -27325,19 +27335,19 @@ const MainView = ()=>{
                     onBackClick: ()=>setSelectedMovie(null)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 56,
+                    lineNumber: 67,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 57,
+                    lineNumber: 68,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Similar Movies:"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 58,
+                    lineNumber: 69,
                     columnNumber: 7
                 }, undefined),
                 similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27345,7 +27355,7 @@ const MainView = ()=>{
                         onMovieClick: setSelectedMovie
                     }, movie.id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 61,
+                        lineNumber: 72,
                         columnNumber: 11
                     }, undefined)),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27354,11 +27364,13 @@ const MainView = ()=>{
                     },
                     onClick: ()=>{
                         setUser(null);
+                        setToken(null);
+                        localStorage.clear();
                     },
                     children: "Logout"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 64,
+                    lineNumber: 75,
                     columnNumber: 9
                 }, undefined)
             ]
@@ -27373,14 +27385,14 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 78,
+                lineNumber: 88,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: "The list is empty"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 83,
+                lineNumber: 93,
                 columnNumber: 7
             }, undefined),
             ";"
@@ -27395,7 +27407,7 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 92,
+                    lineNumber: 102,
                     columnNumber: 9
                 }, undefined)),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27404,17 +27416,19 @@ const MainView = ()=>{
                 },
                 onClick: ()=>{
                     setUser(null);
+                    setToken(null);
+                    localStorage.clear();
                 },
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 100,
+                lineNumber: 110,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 89,
+        lineNumber: 99,
         columnNumber: 5
     }, undefined);
 };
@@ -28413,11 +28427,13 @@ const LoginView = ({ onLoggedIn  })=>{
     _s();
     const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
+    // validation of user login
     const handleSubmit = (event)=>{
+        // To prevent the default behavior of the form which is to reload the entire page
         event.preventDefault();
         const data = {
-            access: username,
-            secret: password
+            Username: username,
+            Password: password
         };
         fetch("https://my-flix-service.onrender.com/login", {
             method: "POST",
@@ -28425,21 +28441,18 @@ const LoginView = ({ onLoggedIn  })=>{
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        }).then((response)=>{
-            if (response.ok) onLoggedIn(username);
-            else response.text().then((text)=>{
-                const error = JSON.parse(text);
-                console.log(error.message);
-                alert("Login failed");
-            }).catch((error)=>{
-                console.log(error.message);
-                alert("An error occurred while logging in");
-            });
-        }).catch((error)=>{
-            console.log(error.message);
-            alert("An error occurred while logging in");
+        }).then((response)=>response.json()).then((data)=>{
+            console.log("Login response: ", data);
+            if (data.user) {
+                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("token", data.token);
+                onLoggedIn(data.user, data.token);
+            } else alert("No such user");
+        }).catch((e)=>{
+            alert("Something went wrong");
         });
     };
+    // login form with submit button
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
         onSubmit: handleSubmit,
         children: [

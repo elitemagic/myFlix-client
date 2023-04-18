@@ -10,6 +10,10 @@ import { LoginView } from "../login-view/login-view";
 
 
 export const MainView = () => {
+
+  const storedToken = localStorage.getItem("token");
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
   const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -20,6 +24,13 @@ export const MainView = () => {
   
   useEffect(() => {
     fetch("https://my-flix-service.onrender.com/movies")
+    if (!token) {
+      return;
+    }
+
+    fetch("https://my-flix-service.onrender.com/movies", {
+      headers: {Authorization: `Bearer ${token}`}
+    })
     .then((response) => response.json())
     .then((data) => {
       const moviesFromApi = data.map((movie) => {
@@ -35,7 +46,7 @@ export const MainView = () => {
 
       setMovies(moviesFromApi);
     });
-  }, []);
+  }, [token]);
 
  
   if (!user) {
@@ -62,8 +73,7 @@ export const MainView = () => {
         ))}
         
         <button style = {{ marginTop: "20px" }}
-        onClick={() => {
-          setUser(null);
+        onClick={() => { setUser(null); setToken(null); localStorage.clear();
         }}
         >Logout</button>
       </>
@@ -98,8 +108,7 @@ export const MainView = () => {
         />
       ))}
       <button style = {{ marginTop: "20px" }}
-      onClick={() => {
-        setUser(null);
+      onClick={() => { setUser(null); setToken(null); localStorage.clear();
       }}
       >
       Logout
