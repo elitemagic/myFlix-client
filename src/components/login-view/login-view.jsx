@@ -13,16 +13,32 @@ export const LoginView = ({ onLoggedIn}) => {
     };
 
     fetch("https://my-flix-service.onrender.com/login", {
-      method: "POST",
-      body: JSON.stringify(data)
-    }).then((response) => {
-      if (response.ok) {
-        onLoggedIn(username);
-      } else {
-        alert("Login failed");
-      }
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
+.then((response) => {
+  if (response.ok) {
+    onLoggedIn(username);
+  } else {
+    response.text().then((text) => {
+      const error = JSON.parse(text);
+      console.log(error.message);
+      alert("Login failed");
+    }).catch((error) => {
+      console.log(error.message);
+      alert("An error occurred while logging in");
     });
+  }
+})
+.catch((error) => {
+  console.log(error.message);
+  alert("An error occurred while logging in");
+});
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
