@@ -2953,9 +2953,9 @@ $RefreshReg$(_c, "App");
 }
 },{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I","./components/main-view/main-view":"4gflv"}],"iTorj":[function(require,module,exports) {
 "use strict";
-module.exports = require("9581121c68c343b1");
+module.exports = require("3cc532ac1a61fc2f");
 
-},{"9581121c68c343b1":"48uCM"}],"48uCM":[function(require,module,exports) {
+},{"3cc532ac1a61fc2f":"48uCM"}],"48uCM":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-dev-runtime.development.js
@@ -2967,7 +2967,7 @@ module.exports = require("9581121c68c343b1");
  */ "use strict";
 (function() {
     "use strict";
-    var React = require("58abb485468bb26e");
+    var React = require("5bce940e9a656870");
     // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
@@ -3786,11 +3786,11 @@ module.exports = require("9581121c68c343b1");
     exports.jsxDEV = jsxDEV$1;
 })();
 
-},{"58abb485468bb26e":"21dqq"}],"21dqq":[function(require,module,exports) {
+},{"5bce940e9a656870":"21dqq"}],"21dqq":[function(require,module,exports) {
 "use strict";
-module.exports = require("bea99a7fc630ccef");
+module.exports = require("da2b077f967fc0d2");
 
-},{"bea99a7fc630ccef":"6YvXz"}],"6YvXz":[function(require,module,exports) {
+},{"da2b077f967fc0d2":"6YvXz"}],"6YvXz":[function(require,module,exports) {
 /**
  * @license React
  * react.development.js
@@ -5658,7 +5658,7 @@ module.exports = require("bea99a7fc630ccef");
 
 },{}],"lOjBx":[function(require,module,exports) {
 "use strict";
-var m = require("368322c89587a9b2");
+var m = require("9d782498705fa7b7");
 var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -5677,7 +5677,7 @@ exports.hydrateRoot = function(c, h, o) {
     }
 };
 
-},{"368322c89587a9b2":"j6uA9"}],"j6uA9":[function(require,module,exports) {
+},{"9d782498705fa7b7":"j6uA9"}],"j6uA9":[function(require,module,exports) {
 "use strict";
 function checkDCE() {
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") return;
@@ -5691,9 +5691,9 @@ function checkDCE() {
     // a false positive.
     throw new Error("^_^");
 }
-module.exports = require("fd2af5cde6c44598");
+module.exports = require("40d6f0ca63138ee");
 
-},{"fd2af5cde6c44598":"3iA9v"}],"3iA9v":[function(require,module,exports) {
+},{"40d6f0ca63138ee":"3iA9v"}],"3iA9v":[function(require,module,exports) {
 /**
  * @license React
  * react-dom.development.js
@@ -5706,8 +5706,8 @@ module.exports = require("fd2af5cde6c44598");
 (function() {
     "use strict";
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
-    var React = require("58b60fb231219188");
-    var Scheduler = require("428a4d64033b5fb2");
+    var React = require("7e075f4893b2502");
+    var Scheduler = require("b2b697df3be8d931");
     var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     var suppressWarning = false;
     function setSuppressWarning(newSuppressWarning) {
@@ -26678,11 +26678,11 @@ module.exports = require("fd2af5cde6c44598");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{"58b60fb231219188":"21dqq","428a4d64033b5fb2":"juvHo"}],"juvHo":[function(require,module,exports) {
+},{"7e075f4893b2502":"21dqq","b2b697df3be8d931":"juvHo"}],"juvHo":[function(require,module,exports) {
 "use strict";
-module.exports = require("c73aa8de85f7f967");
+module.exports = require("790c616537663e01");
 
-},{"c73aa8de85f7f967":"RqdIf"}],"RqdIf":[function(require,module,exports) {
+},{"790c616537663e01":"RqdIf"}],"RqdIf":[function(require,module,exports) {
 /**
  * @license React
  * scheduler.development.js
@@ -27287,31 +27287,20 @@ var _loginView = require("../login-view/login-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const storedToken = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
+    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-    const [user, setUser] = (0, _react.useState)(null);
-    const [token, setToken] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
-        fetch("https://my-flix-service.onrender.com/movies");
         if (!token) return;
         fetch("https://my-flix-service.onrender.com/movies", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        }).then((response)=>response.json()).then((data)=>{
-            const moviesFromApi = data.map((movie)=>{
-                return {
-                    id: movie._id,
-                    title: movie.Title,
-                    description: movie.Description,
-                    genre: movie.Genre.Name,
-                    director: movie.Director.Name,
-                    image: movie.ImagePath
-                };
-            });
-            setMovies(moviesFromApi);
+        }).then((response)=>response.json()).then((movies)=>{
+            setMovies(movies);
         });
     }, [
         token
@@ -27323,7 +27312,7 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 54,
+        lineNumber: 33,
         columnNumber: 7
     }, undefined);
     if (selectedMovie) {
@@ -27335,19 +27324,19 @@ const MainView = ()=>{
                     onBackClick: ()=>setSelectedMovie(null)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 67,
+                    lineNumber: 46,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 68,
+                    lineNumber: 47,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Similar Movies:"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 69,
+                    lineNumber: 48,
                     columnNumber: 7
                 }, undefined),
                 similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27355,7 +27344,7 @@ const MainView = ()=>{
                         onMovieClick: setSelectedMovie
                     }, movie.id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 72,
+                        lineNumber: 51,
                         columnNumber: 11
                     }, undefined)),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27370,7 +27359,7 @@ const MainView = ()=>{
                     children: "Logout"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 75,
+                    lineNumber: 54,
                     columnNumber: 9
                 }, undefined)
             ]
@@ -27385,14 +27374,14 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 88,
+                lineNumber: 67,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: "The list is empty"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 93,
+                lineNumber: 72,
                 columnNumber: 7
             }, undefined),
             ";"
@@ -27407,7 +27396,7 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 102,
+                    lineNumber: 81,
                     columnNumber: 9
                 }, undefined)),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27422,17 +27411,17 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 110,
+                lineNumber: 89,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 99,
+        lineNumber: 78,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "ld1mNqbzEgxPu9ZfASjBJ7ZrUMw=");
+_s(MainView, "skShail9kO25ilQX788tJ78Yq3c=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27520,17 +27509,17 @@ exports.export = function(dest, destName, get) {
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */ var ReactIs = require("8beb431321adad20");
+ */ var ReactIs = require("c722c42ad9e0cca5");
 // By explicitly using `prop-types` you are opting into new development behavior.
 // http://fb.me/prop-types-in-prod
 var throwOnDirectAccess = true;
-module.exports = require("e50cb12454a37dec")(ReactIs.isElement, throwOnDirectAccess);
+module.exports = require("f79af20053513e86")(ReactIs.isElement, throwOnDirectAccess);
 
-},{"8beb431321adad20":"7EuwB","e50cb12454a37dec":"bBUgD"}],"7EuwB":[function(require,module,exports) {
+},{"c722c42ad9e0cca5":"7EuwB","f79af20053513e86":"bBUgD"}],"7EuwB":[function(require,module,exports) {
 "use strict";
-module.exports = require("b0eb6e8c66520bf6");
+module.exports = require("13a2010370c0c4ff");
 
-},{"b0eb6e8c66520bf6":"5DsXl"}],"5DsXl":[function(require,module,exports) {
+},{"13a2010370c0c4ff":"5DsXl"}],"5DsXl":[function(require,module,exports) {
 /** @license React v16.13.1
  * react-is.development.js
  *
@@ -27694,11 +27683,11 @@ module.exports = require("b0eb6e8c66520bf6");
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */ "use strict";
-var ReactIs = require("ff61798fa2bbc4dc");
-var assign = require("675cf3c01e4a7952");
-var ReactPropTypesSecret = require("93a234ef5f118ff3");
-var has = require("a3021e4372d45160");
-var checkPropTypes = require("6314c30c5d802e5c");
+var ReactIs = require("ec29f4321aca78bb");
+var assign = require("be07b161d9b95e58");
+var ReactPropTypesSecret = require("96640cf2b7064b27");
+var has = require("a76a51b89dff43d8");
+var checkPropTypes = require("8553d4e5d2c5fdda");
 var printWarning = function() {};
 printWarning = function(text) {
     var message = "Warning: " + text;
@@ -28125,7 +28114,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
     return ReactPropTypes;
 };
 
-},{"ff61798fa2bbc4dc":"7EuwB","675cf3c01e4a7952":"7OXxh","93a234ef5f118ff3":"jZTZJ","a3021e4372d45160":"fqKuf","6314c30c5d802e5c":"5VwyJ"}],"7OXxh":[function(require,module,exports) {
+},{"ec29f4321aca78bb":"7EuwB","be07b161d9b95e58":"7OXxh","96640cf2b7064b27":"jZTZJ","a76a51b89dff43d8":"fqKuf","8553d4e5d2c5fdda":"5VwyJ"}],"7OXxh":[function(require,module,exports) {
 /*
 object-assign
 (c) Sindre Sorhus
@@ -28201,9 +28190,9 @@ module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
  * LICENSE file in the root directory of this source tree.
  */ "use strict";
 var printWarning = function() {};
-var ReactPropTypesSecret = require("a5a79ae7469c2f7a");
+var ReactPropTypesSecret = require("bdcdb551212debc1");
 var loggedTypeFailures = {};
-var has = require("92f915de7c17f68e");
+var has = require("eea5692074fe1e07");
 printWarning = function(text) {
     var message = "Warning: " + text;
     if (typeof console !== "undefined") console.error(message);
@@ -28261,7 +28250,7 @@ printWarning = function(text) {
 };
 module.exports = checkPropTypes;
 
-},{"a5a79ae7469c2f7a":"jZTZJ","92f915de7c17f68e":"fqKuf"}],"ggaUx":[function(require,module,exports) {
+},{"bdcdb551212debc1":"jZTZJ","eea5692074fe1e07":"fqKuf"}],"ggaUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28440,14 +28429,12 @@ const LoginView = ({ onLoggedIn  })=>{
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify(data)
         }).then((response)=>response.json()).then((data)=>{
-            console.log("Login response: ", data);
-            if (data.user) {
-                localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("token", data.token);
-                onLoggedIn(data.user, data.token);
-            } else alert("No such user");
+            console.log("Login resonse: ", data);
+            if (data.user) onLoggedIn(data.user, data.token);
+            else alert("No such user");
         }).catch((e)=>{
             alert("Something went wrong");
         });
