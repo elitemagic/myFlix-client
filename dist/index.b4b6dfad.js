@@ -2953,9 +2953,9 @@ $RefreshReg$(_c, "App");
 }
 },{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I","./components/main-view/main-view":"4gflv"}],"iTorj":[function(require,module,exports) {
 "use strict";
-module.exports = require("3cc532ac1a61fc2f");
+module.exports = require("122610a627f396cc");
 
-},{"3cc532ac1a61fc2f":"48uCM"}],"48uCM":[function(require,module,exports) {
+},{"122610a627f396cc":"48uCM"}],"48uCM":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-dev-runtime.development.js
@@ -2967,7 +2967,7 @@ module.exports = require("3cc532ac1a61fc2f");
  */ "use strict";
 (function() {
     "use strict";
-    var React = require("5bce940e9a656870");
+    var React = require("32d08e9fa6e14d08");
     // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
@@ -3786,11 +3786,11 @@ module.exports = require("3cc532ac1a61fc2f");
     exports.jsxDEV = jsxDEV$1;
 })();
 
-},{"5bce940e9a656870":"21dqq"}],"21dqq":[function(require,module,exports) {
+},{"32d08e9fa6e14d08":"21dqq"}],"21dqq":[function(require,module,exports) {
 "use strict";
-module.exports = require("da2b077f967fc0d2");
+module.exports = require("5fcc2476b8c3858d");
 
-},{"da2b077f967fc0d2":"6YvXz"}],"6YvXz":[function(require,module,exports) {
+},{"5fcc2476b8c3858d":"6YvXz"}],"6YvXz":[function(require,module,exports) {
 /**
  * @license React
  * react.development.js
@@ -5658,7 +5658,7 @@ module.exports = require("da2b077f967fc0d2");
 
 },{}],"lOjBx":[function(require,module,exports) {
 "use strict";
-var m = require("9d782498705fa7b7");
+var m = require("bae653b2ac9d6984");
 var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -5677,7 +5677,7 @@ exports.hydrateRoot = function(c, h, o) {
     }
 };
 
-},{"9d782498705fa7b7":"j6uA9"}],"j6uA9":[function(require,module,exports) {
+},{"bae653b2ac9d6984":"j6uA9"}],"j6uA9":[function(require,module,exports) {
 "use strict";
 function checkDCE() {
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") return;
@@ -5691,9 +5691,9 @@ function checkDCE() {
     // a false positive.
     throw new Error("^_^");
 }
-module.exports = require("40d6f0ca63138ee");
+module.exports = require("340c5b25d197752c");
 
-},{"40d6f0ca63138ee":"3iA9v"}],"3iA9v":[function(require,module,exports) {
+},{"340c5b25d197752c":"3iA9v"}],"3iA9v":[function(require,module,exports) {
 /**
  * @license React
  * react-dom.development.js
@@ -5706,8 +5706,8 @@ module.exports = require("40d6f0ca63138ee");
 (function() {
     "use strict";
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
-    var React = require("7e075f4893b2502");
-    var Scheduler = require("b2b697df3be8d931");
+    var React = require("b224cc76fa08656c");
+    var Scheduler = require("847ccb9d311d3e73");
     var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     var suppressWarning = false;
     function setSuppressWarning(newSuppressWarning) {
@@ -26678,11 +26678,11 @@ module.exports = require("40d6f0ca63138ee");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{"7e075f4893b2502":"21dqq","b2b697df3be8d931":"juvHo"}],"juvHo":[function(require,module,exports) {
+},{"b224cc76fa08656c":"21dqq","847ccb9d311d3e73":"juvHo"}],"juvHo":[function(require,module,exports) {
 "use strict";
-module.exports = require("790c616537663e01");
+module.exports = require("c06723dfcdf7d0ee");
 
-},{"790c616537663e01":"RqdIf"}],"RqdIf":[function(require,module,exports) {
+},{"c06723dfcdf7d0ee":"RqdIf"}],"RqdIf":[function(require,module,exports) {
 /**
  * @license React
  * scheduler.development.js
@@ -27283,60 +27283,48 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
-var _loginView = require("../login-view/login-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const storedToken = localStorage.getItem("token");
-    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
-    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
-        if (!token) return;
-        fetch("https://my-flix-service.onrender.com/movies", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>response.json()).then((movies)=>{
-            setMovies(movies);
+        fetch("https://my-flix-service.onrender.com/movies").then((response)=>response.json()).then((data)=>{
+            const moviesFromApi = data.map((movie)=>{
+                return {
+                    id: movie._id,
+                    title: movie.Title,
+                    description: movie.Description,
+                    genre: movie.Genre.Name,
+                    director: movie.Director.Name,
+                    image: movie.ImagePath
+                };
+            });
+            setMovies(moviesFromApi);
         });
-    }, [
-        token
-    ]);
-    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-        onLoggedIn: (user, token)=>{
-            setUser(user);
-            setToken(token);
-        }
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 33,
-        columnNumber: 7
-    }, undefined);
+    }, []);
     if (selectedMovie) {
         const similarMovies = movies.filter((movie)=>movie.genre === selectedMovie.genre && movie.title !== selectedMovie.title);
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
                     movie: selectedMovie,
                     onBackClick: ()=>setSelectedMovie(null)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 46,
+                    lineNumber: 62,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 47,
+                    lineNumber: 63,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Similar Movies:"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 48,
+                    lineNumber: 64,
                     columnNumber: 7
                 }, undefined),
                 similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27344,84 +27332,41 @@ const MainView = ()=>{
                         onMovieClick: setSelectedMovie
                     }, movie.id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 51,
+                        lineNumber: 67,
                         columnNumber: 11
-                    }, undefined)),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                    style: {
-                        marginTop: "20px"
-                    },
-                    onClick: ()=>{
-                        setUser(null);
-                        setToken(null);
-                        localStorage.clear();
-                    },
-                    children: "Logout"
-                }, void 0, false, {
-                    fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 54,
-                    columnNumber: 9
-                }, undefined)
+                    }, undefined))
             ]
-        }, void 0, true);
+        }, void 0, true, {
+            fileName: "src/components/main-view/main-view.jsx",
+            lineNumber: 61,
+            columnNumber: 7
+        }, undefined);
     }
-    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                onClick: ()=>{
-                    setUser(null);
-                },
-                children: "Logout"
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 67,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: "The list is empty"
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 72,
-                columnNumber: 7
-            }, undefined),
-            ";"
-        ]
-    }, void 0, true);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: [
-            movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                    movie: movie,
-                    onMovieClick: (newSelectedMovie)=>{
-                        setSelectedMovie(newSelectedMovie);
-                    }
-                }, movie.id, false, {
-                    fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 81,
-                    columnNumber: 9
-                }, undefined)),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                style: {
-                    marginTop: "20px"
-                },
-                onClick: ()=>{
-                    setUser(null);
-                    setToken(null);
-                    localStorage.clear();
-                },
-                children: "Logout"
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 89,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
+    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: "The list is empty"
+    }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 78,
+        lineNumber: 76,
+        columnNumber: 12
+    }, undefined);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                movie: movie,
+                onMovieClick: (newSelectedMovie)=>{
+                    setSelectedMovie(newSelectedMovie);
+                }
+            }, movie.id, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 82,
+                columnNumber: 9
+            }, undefined))
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 80,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "skShail9kO25ilQX788tJ78Yq3c=");
+_s(MainView, "4RzzPqdFy+omBNQtbJYhGcFmSiI=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27431,7 +27376,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"eO949","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I","../login-view/login-view":"9YtA0"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"eO949","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27509,17 +27454,17 @@ exports.export = function(dest, destName, get) {
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */ var ReactIs = require("c722c42ad9e0cca5");
+ */ var ReactIs = require("b8bc960eac079af0");
 // By explicitly using `prop-types` you are opting into new development behavior.
 // http://fb.me/prop-types-in-prod
 var throwOnDirectAccess = true;
-module.exports = require("f79af20053513e86")(ReactIs.isElement, throwOnDirectAccess);
+module.exports = require("3630cb8ae7c466e2")(ReactIs.isElement, throwOnDirectAccess);
 
-},{"c722c42ad9e0cca5":"7EuwB","f79af20053513e86":"bBUgD"}],"7EuwB":[function(require,module,exports) {
+},{"b8bc960eac079af0":"7EuwB","3630cb8ae7c466e2":"bBUgD"}],"7EuwB":[function(require,module,exports) {
 "use strict";
-module.exports = require("13a2010370c0c4ff");
+module.exports = require("3721d1e03f7a5dcc");
 
-},{"13a2010370c0c4ff":"5DsXl"}],"5DsXl":[function(require,module,exports) {
+},{"3721d1e03f7a5dcc":"5DsXl"}],"5DsXl":[function(require,module,exports) {
 /** @license React v16.13.1
  * react-is.development.js
  *
@@ -27683,11 +27628,11 @@ module.exports = require("13a2010370c0c4ff");
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */ "use strict";
-var ReactIs = require("ec29f4321aca78bb");
-var assign = require("be07b161d9b95e58");
-var ReactPropTypesSecret = require("96640cf2b7064b27");
-var has = require("a76a51b89dff43d8");
-var checkPropTypes = require("8553d4e5d2c5fdda");
+var ReactIs = require("2ac649fb76b21007");
+var assign = require("4fdc225115ff1dc2");
+var ReactPropTypesSecret = require("a3de0671ca978477");
+var has = require("8bba6b31d3fb0a3a");
+var checkPropTypes = require("e944f44ae8c370d2");
 var printWarning = function() {};
 printWarning = function(text) {
     var message = "Warning: " + text;
@@ -28114,7 +28059,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
     return ReactPropTypes;
 };
 
-},{"ec29f4321aca78bb":"7EuwB","be07b161d9b95e58":"7OXxh","96640cf2b7064b27":"jZTZJ","a76a51b89dff43d8":"fqKuf","8553d4e5d2c5fdda":"5VwyJ"}],"7OXxh":[function(require,module,exports) {
+},{"2ac649fb76b21007":"7EuwB","4fdc225115ff1dc2":"7OXxh","a3de0671ca978477":"jZTZJ","8bba6b31d3fb0a3a":"fqKuf","e944f44ae8c370d2":"5VwyJ"}],"7OXxh":[function(require,module,exports) {
 /*
 object-assign
 (c) Sindre Sorhus
@@ -28190,9 +28135,9 @@ module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
  * LICENSE file in the root directory of this source tree.
  */ "use strict";
 var printWarning = function() {};
-var ReactPropTypesSecret = require("bdcdb551212debc1");
+var ReactPropTypesSecret = require("194d679b030a7f25");
 var loggedTypeFailures = {};
-var has = require("eea5692074fe1e07");
+var has = require("91373fe86f24b7fc");
 printWarning = function(text) {
     var message = "Warning: " + text;
     if (typeof console !== "undefined") console.error(message);
@@ -28250,7 +28195,7 @@ printWarning = function(text) {
 };
 module.exports = checkPropTypes;
 
-},{"bdcdb551212debc1":"jZTZJ","eea5692074fe1e07":"fqKuf"}],"ggaUx":[function(require,module,exports) {
+},{"194d679b030a7f25":"jZTZJ","91373fe86f24b7fc":"fqKuf"}],"ggaUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28399,112 +28344,6 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"eO949","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I","prop-types":"7wKI2"}],"9YtA0":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$9fee.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LoginView", ()=>LoginView);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _s = $RefreshSig$();
-const LoginView = ({ onLoggedIn  })=>{
-    _s();
-    const [username, setUsername] = (0, _react.useState)("");
-    const [password, setPassword] = (0, _react.useState)("");
-    // validation of user login
-    const handleSubmit = (event)=>{
-        // To prevent the default behavior of the form which is to reload the entire page
-        event.preventDefault();
-        const data = {
-            Username: username,
-            Password: password
-        };
-        fetch("https://my-flix-service.onrender.com/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(data)
-        }).then((response)=>response.json()).then((data)=>{
-            console.log("Login resonse: ", data);
-            if (data.user) onLoggedIn(data.user, data.token);
-            else alert("No such user");
-        }).catch((e)=>{
-            alert("Something went wrong");
-        });
-    };
-    // login form with submit button
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
-        onSubmit: handleSubmit,
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                children: [
-                    "Username:",
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                        type: "text",
-                        value: username,
-                        onChange: (e)=>setUsername(e.target.value),
-                        required: true
-                    }, void 0, false, {
-                        fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 47,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 45,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                children: [
-                    "Password:",
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                        type: "password",
-                        value: password,
-                        onChange: (e)=>setPassword(e.target.value)
-                    }, void 0, false, {
-                        fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 55,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 53,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                type: "submit",
-                children: "Submit"
-            }, void 0, false, {
-                fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 59,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 44,
-        columnNumber: 5
-    }, undefined);
-};
-_s(LoginView, "Lrw7JeD9zj6OUWhT/IH4OIvPKEk=");
-_c = LoginView;
-var _c;
-$RefreshReg$(_c, "LoginView");
-
-  $parcel$ReactRefreshHelpers$9fee.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"eO949","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I"}]},["9lMs1","8Rx3f","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"eO949","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"dMR8I","prop-types":"7wKI2"}]},["9lMs1","8Rx3f","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
