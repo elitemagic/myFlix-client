@@ -28404,7 +28404,7 @@ const LoginView = ({ onLoggedIn  })=>{
             Password: password
         };
         console.log("Data being sent in the request body:", data);
-        fetch("https://my-flix-service.onrender.com/users", {
+        fetch("https://my-flix-service.onrender.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
