@@ -13,6 +13,8 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password
     };
 
+    console.log("Data being sent in the request body:", data);
+
     fetch("https://my-flix-service.onrender.com/users", {
       method: "POST",
       headers: {
@@ -20,7 +22,10 @@ export const LoginView = ({ onLoggedIn }) => {
       },
       body: JSON.stringify(data)
     })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("Response received: ", response);
+     response.json();
+    })
     .then((data) => {
       console.log("Login response: ", data);
       if (data.user) {
