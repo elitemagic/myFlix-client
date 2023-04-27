@@ -28400,7 +28400,7 @@ const LoginView = ({ onLoggedIn  })=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            access: username,
+            Username: username,
             Password: password
         };
         console.log("Data being sent in the request body:", data);
