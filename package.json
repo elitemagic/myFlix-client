@@ -16,12 +16,16 @@
   },
   "homepage": "https://github.com/elitemagic/myFlix-client#readme",
   "dependencies": {
+    "bootstrap": "^5.2.3",
     "express": "^4.18.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@parcel/core": "^2.8.3",
+    "@parcel/transformer-js": "^2.8.3",
     "@parcel/transformer-sass": "^2.8.3",
     "parcel": "^2.8.3",
     "process": "^0.11.10"
