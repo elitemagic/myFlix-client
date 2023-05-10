@@ -6,7 +6,16 @@ import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { Container, Nav, Row, Col, Button, Card, CardGroup, Form } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Row,
+  Col,
+  Button,
+  Card,
+  CardGroup,
+  Form,
+} from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./main-view.scss";
@@ -17,11 +26,10 @@ export const MainView = () => {
 
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);  
+  const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    
     if (!token) return;
 
     fetch("https://my-flix-service.onrender.com/movies", {
@@ -129,15 +137,13 @@ export const MainView = () => {
           />
 
           <Route
-            path="/profile"
+            path="/users"
             element={
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : (
-                  <Col md={6}>
-                    <ProfileView user={user} />
-                  </Col>
+                  <ProfileView user={user} />
                 )}
               </>
             }
