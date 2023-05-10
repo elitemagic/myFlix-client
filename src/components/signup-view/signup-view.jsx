@@ -1,6 +1,13 @@
-import{ useState } from "react";
-import { Container, Row, Col, Button, Card, CardGroup, Form } from "react-bootstrap";
-
+import { useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Card,
+  CardGroup,
+  Form,
+} from "react-bootstrap";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -12,38 +19,50 @@ export const SignupView = () => {
     event.preventDefault();
 
     const data = {
-        Username: username,
-        Password: password,
-        Email: email,
-        Birthday: birthday
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday,
     };
 
-    fetch("SIGNUP_URL", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then((response) => {
-        if (response.ok) {
+    fetch("https://my-flix-service.onrender.com/users", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      if (response.ok) {
+        fetch("https://my-flix-service.onrender.com/login", {
+          method: "POST",
+          body: JSON.stringify({ Username: username, Password: password }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
             alert("Signup successful");
-            window.location.reload();
-        } else {
-            alert("Signup failed");
-        }
+            window.location.replace("/movies");
+          });
+      } else {
+        alert("Signup failed");
+      }
     });
-    }   
-
+  };
 
   return (
     <Container>
       <Row>
         <Col>
           <CardGroup>
-            <Card style={{marginTop: 50, marginBottom:25, width:370}}>
+            <Card style={{ marginTop: 50, marginBottom: 25, width: 370 }}>
               <Card.Body>
-                <Card.Title style={{ textAlign: 'center', fontSize: 18}}>...not a member?  please register below</Card.Title>
+                <Card.Title style={{ textAlign: "center", fontSize: 18 }}>
+                  ...not a member? please register below
+                </Card.Title>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
@@ -53,7 +72,7 @@ export const SignupView = () => {
                       onChange={(e) => setUsername(e.target.value)}
                       required
                       placeholder="Enter username"
-                      minLength="3" 
+                      minLength="3"
                     />
                   </Form.Group>
 
@@ -63,9 +82,9 @@ export const SignupView = () => {
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                        required
+                      required
                       placeholder="Enter password"
-                      minLength="8" 
+                      minLength="8"
                     />
                   </Form.Group>
 
@@ -74,7 +93,7 @@ export const SignupView = () => {
                     <Form.Control
                       type="Date"
                       value={birthday}
-                      onChange={(e) => setBirthday(e.target.vale)}
+                      onChange={(e) => setBirthday(e.target.value)}
                       required
                     />
                   </Form.Group>
