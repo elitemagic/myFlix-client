@@ -81,7 +81,6 @@ export const MainView = () => {
               </>
             }
           />
-
           <Route
             path="/login"
             element={
@@ -96,7 +95,6 @@ export const MainView = () => {
               </>
             }
           />
-
           <Route
             path="/movies/:movieId"
             element={
@@ -113,7 +111,6 @@ export const MainView = () => {
               </>
             }
           />
-
           <Route
             path="/"
             element={
@@ -135,7 +132,6 @@ export const MainView = () => {
               </>
             }
           />
-
           <Route
             path="/users"
             element={
@@ -143,7 +139,7 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : (
-                  <ProfileView user={user} />
+                  <ProfileView user={user} token={token} />
                 )}
               </>
             }

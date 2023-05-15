@@ -32,13 +32,17 @@ export const LoginView = ({ onLoggedIn }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log('Login response: ', data);
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
         } else {
-          alert("No such user");
+          const errorMessage = data.message || "No such user";
+          if (errorMessage === "Incorrect password") {
+            alert("Incorrect password");
+          } else {
+            alert(errorMessage);
+          }
         }
       })
       .catch((e) => {
@@ -77,7 +81,7 @@ export const LoginView = ({ onLoggedIn }) => {
                       required
                     />
                   </Form.Group>
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" className="mt-4">
                     Login
                   </Button>
                 </Form>

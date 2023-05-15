@@ -1,11 +1,37 @@
 import { useState } from "react";
-import { Card, Col, Form, Button } from "react-bootstrap";
 
-export const ProfileView = ({ user, token, onLoggedOut, updateUser }) => {
+import {
+  Card,
+  Col,
+  Form,
+  Button,
+  Container,
+  Row,
+  ButtonToolbar,
+} from "react-bootstrap";
+
+import { UpdateUser } from "./update-user.jsx";
+
+export const ProfileView = ({ user, token, onLoggedOut }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  };
+
+  const handleUpdate = () => {
+    setShowUpdateForm(true);
+  };
+
+  const handleUpdateClose = () => {
+    setShowUpdateForm(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,7 +43,7 @@ export const ProfileView = ({ user, token, onLoggedOut, updateUser }) => {
       birthdate,
     };
 
-    fetch(`https://my-flix-service.onrender.com/users/${user.username}`, {
+    fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -29,14 +55,14 @@ export const ProfileView = ({ user, token, onLoggedOut, updateUser }) => {
         if (response.ok) {
           return response.json();
         } else {
-          alert("Changing userdata failed");
+          alert("Updating user data failed");
           return false;
         }
       })
       .then((user) => {
         if (user) {
-          alert("Successfully changed userdata");
-          updateUser(user);
+          alert("Successfully updated user data");
+          handleUpdateUser(user);
         }
       })
       .catch((e) => {
@@ -46,7 +72,7 @@ export const ProfileView = ({ user, token, onLoggedOut, updateUser }) => {
 
   const deleteAccount = () => {
     console.log("doin");
-    fetch(`https://my-flix-service.onrender.com/users/${user.username}`, {
+    fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -64,80 +90,58 @@ export const ProfileView = ({ user, token, onLoggedOut, updateUser }) => {
   };
 
   return (
-    <>
-      <Col md={6}>
-        <Card className="mt-2 mb-3">
-          <Card.Body>
-            <Card.Title>Your info</Card.Title>
-            <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
-          </Card.Body>
-        </Card>
-        <Button
-          variant="danger"
-          onClick={() => {
-            if (confirm("Are you sure?")) {
-              deleteAccount();
-            }
-          }}
-        >
-          Delete user account
-        </Button>
-      </Col>
-      <Col md={6}>
-        <Card className="mt-2 mb-3">
-          <Card.Body>
-            <Card.Title>Update your info</Card.Title>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group>
-                <Form.Label>Username:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  minLength="5"
-                  className="bg-light"
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Password:</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength="8"
-                  className="bg-light"
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Email:</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="bg-light"
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Birthdate:</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
-                  required
-                  className="bg-light"
-                />
-              </Form.Group>
-              <Button className="mt-3" variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-      </Col>
-    </>
+    <Container className="my-3">
+      <Row>
+        <h1 className="mb-4 justify-content-between">
+          {user.Username}'s Profile
+        </h1>
+      </Row>
+      <Row className="mb-4">
+        <p>
+          <span className="font-weight-bold">Username: </span>
+          {user.Username}
+        </p>
+        <p>
+          <span className="font-weight-bold">Email: </span>
+          {user.Email}
+        </p>
+        {/* {user.Birthday && (
+          <p>
+            <span className="font-weight-bold">Birthday: </span>
+            {new Date(user.Birthday).toLocaleDateString()}
+          </p>
+        )} */}
+      </Row>
+      {showUpdateForm && (
+        <UpdateUser
+          user={user}
+          token={token}
+          onUpdateUser={() => {}}
+          onClose={handleUpdateClose}
+        />
+      )}
+      {!showUpdateForm && (
+        <Row>
+          <Col md={2}>
+            <Button
+              variant="primary"
+              onClick={handleUpdate}
+              className="w-100 mb-2"
+            >
+              Update Your Profile
+            </Button>
+          </Col>
+          <Col md={2}>
+            <Button
+              variant="danger"
+              onClick={handleLogout}
+              className="w-100 mb-2"
+            >
+              Log Out
+            </Button>
+          </Col>
+        </Row>
+      )}
+    </Container>
   );
 };

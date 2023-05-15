@@ -25,7 +25,7 @@ export const SignupView = () => {
       Birthday: birthday,
     };
 
-    fetch("https://my-flix-service.onrender.com/users", {
+    fetch("https://my-flix-service.onrender.com/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -84,7 +84,7 @@ export const SignupView = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       placeholder="Enter password"
-                      minLength="8"
+                      minLength="5"
                     />
                   </Form.Group>
 
@@ -98,7 +98,7 @@ export const SignupView = () => {
                     />
                   </Form.Group>
 
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" className="mt-4">
                     Sign Up
                   </Button>
                 </Form>
