@@ -17,7 +17,7 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
       Username: username,
       Password: password,
       Email: email,
-      //Birthday: new Date(birthdate).toISOString().split("T")[0],
+      Birthday: new Date(birthdate).toISOString().split("T")[0],
     };
 
     axios
@@ -54,7 +54,6 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
     window.location.href = "/login";
   };
 
@@ -95,7 +94,7 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
                 className="bg-light"
               />
             </Form.Group>
-            {/* <Form.Group className="mb-4">
+            <Form.Group className="mb-4">
               <Form.Label>Birthdate:</Form.Label>
               <Form.Control
                 type="date"
@@ -103,7 +102,7 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
                 onChange={(e) => setBirthdate(e.target.value)}
                 className="bg-light"
               />
-            </Form.Group> */}
+            </Form.Group>
             <Row className="mt-4">
               <Col>
                 <Button variant="primary" type="submit" className="w-100 mb-1 ">
@@ -121,7 +120,7 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
               </Col>
               <Col>
                 <Button
-                  variant="danger"
+                  variant="warning"
                   onClick={handleLogout}
                   className="w-100 mb-1"
                 >

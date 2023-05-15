@@ -71,22 +71,23 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
   };
 
   const deleteAccount = () => {
-    console.log("doin");
-    fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert("Your account has been deleted. Good Bye!");
-          onLoggedOut();
-        } else {
-          alert("Could not delete account");
-        }
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
+        method: "DELETE",
+        // headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((e) => {
-        alert(e);
-      });
+        .then((response) => {
+          if (response.ok) {
+            alert("Your account has been deleted. Good Bye!");
+            handleLogout();
+          } else {
+            alert("Could not delete account");
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
   };
 
   return (
@@ -105,12 +106,12 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
           <span className="font-weight-bold">Email: </span>
           {user.Email}
         </p>
-        {/* {user.Birthday && (
+        {user.Birthday && (
           <p>
             <span className="font-weight-bold">Birthday: </span>
             {new Date(user.Birthday).toLocaleDateString()}
           </p>
-        )} */}
+        )}
       </Row>
       {showUpdateForm && (
         <UpdateUser
@@ -134,6 +135,15 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
           <Col md={2}>
             <Button
               variant="danger"
+              onClick={deleteAccount}
+              className="w-100 mb-2"
+            >
+              Delete Account
+            </Button>
+          </Col>
+          <Col md={2}>
+            <Button
+              variant="warning"
               onClick={handleLogout}
               className="w-100 mb-2"
             >
