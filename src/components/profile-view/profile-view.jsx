@@ -1,121 +1,148 @@
-import React, { useState, useEffect } from "react";
-import { Container, Form, Button, ListGroup } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { MovieCard } from "../movie-card/movie-card";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { useParams } from "react-router";
+import { useState, useEffect } from "react";
 
-export const ProfileView = ({ user, movies, onUpdateUser, onDeleteUser }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+import { FavoriteMovieCard } from "./favorite-movie-card";
+import { UpdateUser } from "./update-user";
+
+export const ProfileView = ({ user, token, onLoggedOut, setUser, movies }) => {
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const history = useHistory();
 
-  useEffect(() => {
-    // Set the state with the current user's information
-    setUsername(user.Username);
-    setPassword(user.Password);
-    setEmail(user.Email);
-    setBirthdate(user.Birthdate);
-    setFavoriteMovies(
-      movies.filter((m) => user.FavoriteMovies.includes(m._id))
-    );
-  }, [user, movies]);
-
-  const handleUpdate = (event) => {
-    event.preventDefault();
-    setIsEditing(false);
-
-    // Call the onUpdateUser function passed as a prop with the updated user information
-    onUpdateUser({
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthdate: birthdate,
-    });
+  const handleUpdate = () => {
+    setShowUpdateForm(true);
   };
 
-  const handleDelete = () => {
-    // Call the onDeleteUser function passed as a prop
-    onDeleteUser();
-    history.push("/");
+  const handleUpdateClose = () => {
+    setShowUpdateForm(false);
+  };
+
+  const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+    setShowUpdateForm(false);
+  };
+
+  useEffect(() => {
+    fetch(
+      `https://my-flix-service.onrender.com/users/${user.Username}/favoriteMovies`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setFavoriteMovies(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token, user.Username]);
+
+  const deleteAccount = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+
+    if (confirmed) {
+      fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Your account has been deleted. Goodbye!");
+            localStorage.clear(); // Clear localStorage
+            window.location.replace("/signup"); // Redirect to the SignupView
+          } else {
+            alert("Could not delete account");
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
   };
 
   return (
-    <Container>
-      <h2>Profile</h2>
-      <Form>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username:</Form.Label>
-          {isEditing ? (
-            <Form.Control
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          ) : (
-            <Form.Control plaintext readOnly defaultValue={username} />
-          )}
-        </Form.Group>
-
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password:</Form.Label>
-          {isEditing ? (
-            <Form.Control
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          ) : (
-            <Form.Control plaintext readOnly defaultValue={password} />
-          )}
-        </Form.Group>
-
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email:</Form.Label>
-          {isEditing ? (
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          ) : (
-            <Form.Control plaintext readOnly defaultValue={email} />
-          )}
-        </Form.Group>
-
-        <Form.Group controlId="formBirthdate">
-          <Form.Label>Birthdate:</Form.Label>
-          {isEditing ? (
-            <Form.Control
-              type="date"
-              placeholder="Enter birthdate"
-              value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)}
-            />
-          ) : (
-            <Form.Control plaintext readOnly defaultValue={birthdate} />
-          )}
-        </Form.Group>
-
-        <Button variant="primary" onClick={() => setIsEditing(true)}>
-          Edit
-        </Button>{" "}
-        {isEditing && (
-          <Button variant="secondary" onClick={() => setIsEditing(false)}>
-            Cancel
-          </Button>
-        )}{" "}
-        {isEditing && (
-          <Button variant="success" type="submit" onClick={handleUpdate}>
-            Save
-          </Button>
-        )}
-      </Form>
-   </Container>
+    <>
+      {!showUpdateForm && (
+        <Container className="my-3">
+          <Row>
+            <h1 className="mb-4 justify-content-between">
+              {user.Username}'s Profile
+            </h1>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              <p>
+                <span className="font-weight-bold">Username: </span>
+                {user.Username}
+              </p>
+              <p>
+                <span className="font-weight-bold">Email: </span>
+                {user.Email}
+              </p>
+              {user.Birthday && (
+                <p>
+                  <span className="font-weight-bold">Birthday: </span>
+                  {new Date(user.Birthday).toLocaleDateString()}
+                </p>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div>
+                {favoriteMovies.length > 0 && (
+                  <div>
+                    <FavoriteMovieCard
+                      favoriteMovies={favoriteMovies}
+                      movies={movies}
+                    />
+                  </div>
+                )}
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={2}>
+              <Button
+                variant="primary"
+                onClick={handleUpdate}
+                className="w-100 mb-2"
+              >
+                Update Profile
+              </Button>
+            </Col>
+            <Col md={2}>
+              <Button
+                variant="warning"
+                onClick={onLoggedOut}
+                className="w-100 mb-2"
+              >
+                Log Out
+              </Button>
+            </Col>
+            <Col md={2}>
+              <Button
+                variant="danger"
+                onClick={deleteAccount}
+                className="w-100 mb-2"
+              >
+                Delete Account
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      )}
+      {showUpdateForm && (
+        <UpdateUser
+          user={user}
+          token={token}
+          onUpdateUser={handleUpdateUser}
+          onClose={handleUpdateClose}
+        />
+      )}
+    </>
   );
 };
