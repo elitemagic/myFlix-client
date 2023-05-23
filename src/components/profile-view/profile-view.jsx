@@ -1,29 +1,13 @@
-import { useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { useParams } from "react-router";
+import { useState, useEffect } from "react";
 
-import {
-  Card,
-  Col,
-  Form,
-  Button,
-  Container,
-  Row,
-  ButtonToolbar,
-} from "react-bootstrap";
+import { FavoriteMovieCard } from "./favorite-movie-card";
+import { UpdateUser } from "./update-user";
 
-import { UpdateUser } from "./update-user.jsx";
-
-export const ProfileView = ({ user, token, onLoggedOut }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+export const ProfileView = ({ user, token, onLoggedOut, setUser, movies }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "/login";
-  };
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   const handleUpdate = () => {
     setShowUpdateForm(true);
@@ -33,125 +17,132 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
     setShowUpdateForm(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const data = {
-      username,
-      password,
-      email,
-      birthdate,
-    };
-
-    fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          alert("Updating user data failed");
-          return false;
-        }
-      })
-      .then((user) => {
-        if (user) {
-          alert("Successfully updated user data");
-          handleUpdateUser(user);
-        }
-      })
-      .catch((e) => {
-        alert(e);
-      });
+  const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+    setShowUpdateForm(false);
   };
 
+  useEffect(() => {
+    fetch(
+      `https://my-flix-service.onrender.com/users/${user.Username}/favoriteMovies`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setFavoriteMovies(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token, user.Username]);
+
   const deleteAccount = () => {
-    if (window.confirm("Are you sure you want to delete your account?")) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+
+    if (confirmed) {
       fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
         method: "DELETE",
-        // headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
         .then((response) => {
           if (response.ok) {
-            alert("Your account has been deleted. Good Bye!");
-            handleLogout();
+            alert("Your account has been deleted. Goodbye!");
+            localStorage.clear(); // Clear localStorage
+            window.location.replace("/signup"); // Redirect to the SignupView
           } else {
             alert("Could not delete account");
           }
         })
-        .catch((e) => {
-          alert(e);
+        .catch((error) => {
+          alert(error);
         });
     }
   };
 
   return (
-    <Container className="my-3">
-      <Row>
-        <h1 className="mb-4 justify-content-between">
-          {user.Username}'s Profile
-        </h1>
-      </Row>
-      <Row className="mb-4">
-        <p>
-          <span className="font-weight-bold">Username: </span>
-          {user.Username}
-        </p>
-        <p>
-          <span className="font-weight-bold">Email: </span>
-          {user.Email}
-        </p>
-        {user.Birthday && (
-          <p>
-            <span className="font-weight-bold">Birthday: </span>
-            {new Date(user.Birthday).toLocaleDateString()}
-          </p>
-        )}
-      </Row>
+    <>
+      {!showUpdateForm && (
+        <Container className="my-3">
+          <Row>
+            <h1 className="mb-4 justify-content-between">
+              {user.Username}'s Profile
+            </h1>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              <p>
+                <span className="font-weight-bold">Username: </span>
+                {user.Username}
+              </p>
+              <p>
+                <span className="font-weight-bold">Email: </span>
+                {user.Email}
+              </p>
+              {user.Birthday && (
+                <p>
+                  <span className="font-weight-bold">Birthday: </span>
+                  {new Date(user.Birthday).toLocaleDateString()}
+                </p>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div>
+                {favoriteMovies.length > 0 && (
+                  <div>
+                    <FavoriteMovieCard
+                      favoriteMovies={favoriteMovies}
+                      movies={movies}
+                    />
+                  </div>
+                )}
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={2}>
+              <Button
+                variant="primary"
+                onClick={handleUpdate}
+                className="w-100 mb-2"
+              >
+                Update Profile
+              </Button>
+            </Col>
+            <Col md={2}>
+              <Button
+                variant="warning"
+                onClick={onLoggedOut}
+                className="w-100 mb-2"
+              >
+                Log Out
+              </Button>
+            </Col>
+            <Col md={2}>
+              <Button
+                variant="danger"
+                onClick={deleteAccount}
+                className="w-100 mb-2"
+              >
+                Delete Account
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      )}
       {showUpdateForm && (
         <UpdateUser
           user={user}
           token={token}
-          onUpdateUser={() => {}}
+          onUpdateUser={handleUpdateUser}
           onClose={handleUpdateClose}
         />
       )}
-      {!showUpdateForm && (
-        <Row>
-          <Col md={2}>
-            <Button
-              variant="primary"
-              onClick={handleUpdate}
-              className="w-100 mb-2"
-            >
-              Update Your Profile
-            </Button>
-          </Col>
-          <Col md={2}>
-            <Button
-              variant="danger"
-              onClick={deleteAccount}
-              className="w-100 mb-2"
-            >
-              Delete Account
-            </Button>
-          </Col>
-          <Col md={2}>
-            <Button
-              variant="warning"
-              onClick={handleLogout}
-              className="w-100 mb-2"
-            >
-              Log Out
-            </Button>
-          </Col>
-        </Row>
-      )}
-    </Container>
+    </>
   );
 };

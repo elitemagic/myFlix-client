@@ -1,136 +1,99 @@
-import React, { useState } from "react";
-import { Card, Form, Button, Col, Row } from "react-bootstrap";
-import axios from "axios";
-
-import { ProfileView } from "./profile-view";
+import { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
+  // State variables for the updated user details
   const [username, setUsername] = useState(user.Username);
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState(user.Email);
-  const [birthdate, setBirthdate] = useState(user.Birthday);
+  const [birthday, setBirthday] = useState(user.Birthday || "");
 
+  // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const data = {
+    // Prepare the updated user object
+    const updatedUser = {
+      ...user,
       Username: username,
-      Password: password,
       Email: email,
-      Birthday: new Date(birthdate).toISOString().split("T")[0],
+      Birthday: birthday,
     };
 
-    axios
-      .put(
-        `https://my-flix-service.onrender.com/users/${user.Username}`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+    fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedUser),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => {
-        if (!response.ok) {
+        if (response.ok) {
+          return response.json();
+        } else {
           throw new Error("Updating user data failed");
         }
-        return response.data();
       })
-      .then((updatedUser) => {
+      .then((user) => {
         alert("Successfully updated user data");
-        onUpdateUser(updatedUser);
+        onUpdateUser(user);
         onClose();
       })
       .catch((error) => {
-        alert(error.message);
+        if (error instanceof SyntaxError) {
+          console.error("Invalid JSON response from the server");
+        } else {
+          console.error("Error updating user data:", error.message);
+          // Handle other types of errors
+        }
       });
+
+    // Call the onUpdateUser function with the updated user object
+    onUpdateUser(updatedUser);
   };
 
-  const handleClose = () => {
+  // Function to handle form cancellation
+  const handleCancel = () => {
     onClose();
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "/login";
-  };
-
   return (
-    <Col md={6}>
-      <Card className="mt-2 mb-3">
-        <Card.Body>
-          <Card.Title>Update your info</Card.Title>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label>Username:</Form.Label>
-              <Form.Control
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                minLength="5"
-                className="bg-light"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Password:</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                minLength="5"
-                className="bg-light"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Email:</Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="bg-light"
-              />
-            </Form.Group>
-            <Form.Group className="mb-4">
-              <Form.Label>Birthdate:</Form.Label>
-              <Form.Control
-                type="date"
-                value={birthdate}
-                onChange={(e) => setBirthdate(e.target.value)}
-                className="bg-light"
-              />
-            </Form.Group>
-            <Row className="mt-4">
-              <Col>
-                <Button variant="primary" type="submit" className="w-100 mb-1 ">
-                  Save Changes
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  variant="secondary"
-                  onClick={handleClose}
-                  className="w-100 mb-1"
-                >
-                  Close
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  variant="warning"
-                  onClick={handleLogout}
-                  className="w-100 mb-1"
-                >
-                  Logout
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Col>
+    <div>
+      <h2>Update Profile</h2>
+      <Form onSubmit={handleSubmit}>
+        {/* Form fields for updating username, email, and birthday */}
+        <Form.Group controlId="formUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="formBirthday">
+          <Form.Label>Birthday</Form.Label>
+          <Form.Control
+            type="date"
+            value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
+          />
+        </Form.Group>
+        {/* Buttons for submitting the form or canceling */}
+        <Button variant="primary" type="submit">
+          Update
+        </Button>{" "}
+        <Button variant="secondary" onClick={handleCancel}>
+          Cancel
+        </Button>
+      </Form>
+    </div>
   );
 };

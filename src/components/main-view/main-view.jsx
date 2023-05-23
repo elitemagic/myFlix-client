@@ -26,8 +26,8 @@ export const MainView = () => {
 
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [movies, setMovies] = useState([]);
-  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     if (!token) return;
@@ -50,6 +50,10 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       });
   }, [token]);
+
+  const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
 
   return (
     <BrowserRouter>
@@ -139,7 +143,18 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : (
-                  <ProfileView user={user} token={token} />
+                  <ProfileView
+                    user={user}
+                    token={token}
+                    onLoggedOut={() => {
+                      setUser(null);
+                      setToken(null);
+                      localStorage.clear();
+                    }}
+                    setUser={setUser}
+                    onUpdateUser={handleUpdateUser}
+                    movies={movies} // Pass the favoriteMovies state as a prop
+                  />
                 )}
               </>
             }

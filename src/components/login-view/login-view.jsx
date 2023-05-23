@@ -15,8 +15,8 @@ export const LoginView = ({ onLoggedIn }) => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
-    // this prevents the default behavior of the form which is to reload the entire page
     event.preventDefault();
+    // this prevents the default behavior of the form which is to reload the entire page
 
     const data = {
       Username: username,
