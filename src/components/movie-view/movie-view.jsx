@@ -1,12 +1,12 @@
-// import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Card, CardGroup } from "react-bootstrap";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 
 import "./movie-view.scss";
 
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ movies, favoriteMovies, setFavoriteMovies }) => {
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);
@@ -14,10 +14,14 @@ export const MovieView = ({ movies }) => {
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
 
+  const isFavorite = favoriteMovies && favoriteMovies.includes(movieId);
+
   const addToFavorites = (movieId) => {
-    if (!token) {
+    if (Array.isArray(favoriteMovies) && favoriteMovies.includes(movieId)) {
+      alert(`${movie.title} is already in your favorites.`);
       return;
     }
+
     fetch(
       `https://my-flix-service.onrender.com/users/${user.Username}/movies/${movieId}`,
       {
@@ -31,6 +35,10 @@ export const MovieView = ({ movies }) => {
       .then((response) => response.json())
       .then((resJSON) => {
         alert(`${movie.title} was added to favorites.`);
+        setFavoriteMovies((prevFavoriteMovies) => [
+          ...prevFavoriteMovies,
+          movieId,
+        ]);
       })
       .catch((error) => {
         alert("Error adding movie to favorites");
@@ -54,8 +62,10 @@ export const MovieView = ({ movies }) => {
     )
       .then((response) => response.json())
       .then((resJSON) => {
-        alert("Movie removed from favorites");
-        console.log(resJSON);
+        alert(`${movie.title} removed from favorites`);
+        setFavoriteMovies((prevFavoriteMovies) =>
+          prevFavoriteMovies.filter((id) => id !== movieId)
+        );
       })
       .catch((error) => {
         alert("Error removing movie from favorites");
@@ -68,8 +78,9 @@ export const MovieView = ({ movies }) => {
       <Container
         style={{
           position: "relative",
-          width: "50%",
-          height: "auto",
+          margin: "25px auto",
+          width: "80%",
+          height: "100%",
         }}
       >
         <div
@@ -80,86 +91,93 @@ export const MovieView = ({ movies }) => {
             width: "100%",
             height: "100%",
             backgroundImage: `url(${movie.image})`,
-            backgroundSize: "contain",
-            opacity: 0.2,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center top",
+            opacity: 0.15,
           }}
         ></div>
-        {/* <Row className="d-flex flex-row-reverse justify-content-center">
-        <img src={movie.image} style={{ width: "50%", height: "auto" }} />
-      </Row> */}
         <Row className="d-flex flex-row justify-content-center p-4">
-          <h1 className="my-0 text-center">
-            <span>{movie.title}</span>
-          </h1>
+          <Col>
+            <h1 className="my-5 text-center">
+              <span>{movie.title}</span>
+            </h1>
+          </Col>
         </Row>
         <Row>
-          <h3 className="align-self-end mb-2 ">
-            <span>Director: </span>
-            <span>{movie.director}</span>
-          </h3>
+          <Col>
+            <h3 className="align-self-end mb-4 ">
+              <span>Director: </span>
+              <span>{movie.director}</span>
+            </h3>
+          </Col>
         </Row>
         <Row>
-          <h3 className="align-self-end mb-2 ">
-            <span>Genre: </span>
-            <span>{movie.genre}</span>
-          </h3>
+          <Col>
+            <h3 className="align-self-end mb-4 ">
+              <span>Genre: </span>
+              <span>{movie.genre}</span>
+            </h3>
+          </Col>
         </Row>
         <Row>
-          <div className="mb-4">
-            <h3 className="text-decoration-underline mb-2">Description: </h3>
+          <Col>
+            <div className="mb-4">
+              <h3 className="text-decoration-underline mb-2">Description: </h3>
 
-            <span>{movie.description}</span>
-          </div>
+              <h4>{movie.description}</h4>
+            </div>
+          </Col>
         </Row>
-      </Container>
+        <>
+          <Container
+            style={{
+              position: "absolute",
+              bottom: 0,
+              width: "90%",
+              paddingBottom: "5px",
+            }}
+          >
+            <Row className="d-flex justify-content-center">
+              <Button
+                as={Link}
+                to="/"
+                variant="success"
+                style={{
+                  width: "50%",
+                  padding: "5px",
+                  marginRight: "25px",
+                  zIndex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                Back
+              </Button>
 
-      <Container
-        style={{
-          position: "relative",
-          width: "50%",
-          height: "auto",
-        }}
-      >
-        <Row className="d-flex justify-content-center">
-          <Link to={"/"}>
-            <Button
-              variant="success"
-              style={{
-                width: "100%",
-                padding: "5px",
-                zIndex: 1,
-              }}
-            >
-              Back
-            </Button>
-          </Link>
-        </Row>
-        <Row className="d-flex justify-content-center">
-          <Button
-            variant="primary"
-            style={{
-              width: "100%",
-              padding: "5px",
-              zIndex: 1,
-            }}
-            onClick={() => addToFavorites(movie.id)}
-          >
-            Add to Favorites
-          </Button>
-        </Row>
-        <Row className="d-flex justify-content-center">
-          <Button
-            variant="success"
-            style={{
-              width: "100%",
-              padding: "5px",
-              zIndex: 1,
-            }}
-            onClick={() => removeFromFavorites(movie.id)}
-          >
-            Remove from Favorites
-          </Button>
-        </Row>
+              <Button
+                variant={isFavorite ? "success" : "success"}
+                style={{
+                  width: "20%",
+                  padding: "5px",
+                  marginLeft: "5px",
+                  zIndex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onClick={
+                  isFavorite
+                    ? () => removeFromFavorites(movie.id)
+                    : () => addToFavorites(movie.id)
+                }
+              >
+                {isFavorite ? <BsHeartFill /> : <BsHeart />}
+              </Button>
+            </Row>
+          </Container>
+        </>
       </Container>
     </>
   );

@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import { UpdatePassword } from "./update-password";
 
 export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
   // State variables for the updated user details
   const [username, setUsername] = useState(user.Username);
   const [email, setEmail] = useState(user.Email);
-  const [birthday, setBirthday] = useState(user.Birthday || "");
+  const [birthdate, setBirthdate] = useState(user.Birthdate || "");
+
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
 
   // Function to handle form submission
   const handleSubmit = (event) => {
@@ -13,10 +16,9 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
 
     // Prepare the updated user object
     const updatedUser = {
-      ...user,
       Username: username,
       Email: email,
-      Birthday: birthday,
+      Birthdate: birthdate,
     };
 
     fetch(`https://my-flix-service.onrender.com/users/${user.Username}`, {
@@ -44,12 +46,8 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
           console.error("Invalid JSON response from the server");
         } else {
           console.error("Error updating user data:", error.message);
-          // Handle other types of errors
         }
       });
-
-    // Call the onUpdateUser function with the updated user object
-    onUpdateUser(updatedUser);
   };
 
   // Function to handle form cancellation
@@ -57,11 +55,27 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
     onClose();
   };
 
+  const handlePassword = () => {
+    setShowPasswordForm(true);
+  };
+
+  if (showPasswordForm) {
+    return (
+      <UpdatePassword
+        user={user}
+        token={token}
+        onUpdateUser={onUpdateUser}
+        onClose={onClose}
+      />
+    );
+  }
+
+  console.log(user);
+
   return (
-    <div>
-      <h2>Update Profile</h2>
+    <>
+      <h2>Update {username}&apos;s Profile</h2>
       <Form onSubmit={handleSubmit}>
-        {/* Form fields for updating username, email, and birthday */}
         <Form.Group controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -79,21 +93,39 @@ export const UpdateUser = ({ user, token, onUpdateUser, onClose }) => {
           />
         </Form.Group>
         <Form.Group controlId="formBirthday">
-          <Form.Label>Birthday</Form.Label>
+          <Form.Label>Birthdate</Form.Label>
           <Form.Control
             type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
+            value={birthdate}
+            onChange={(e) => setBirthdate(e.target.value)}
           />
         </Form.Group>
-        {/* Buttons for submitting the form or canceling */}
-        <Button variant="primary" type="submit">
-          Update
-        </Button>{" "}
-        <Button variant="secondary" onClick={handleCancel}>
-          Cancel
-        </Button>
+        <Row className="mt-2">
+          <Col md={2}>
+            <Button variant="success" type="submit" className="w-100 mb-2">
+              Update
+            </Button>
+          </Col>
+          <Col md={2}>
+            <Button
+              variant="warning"
+              onClick={handleCancel}
+              className="w-100 mb-2"
+            >
+              Cancel
+            </Button>
+          </Col>
+          <Col md={2}>
+            <Button
+              variant="secondary"
+              onClick={handlePassword}
+              className="w-100 mb-2"
+            >
+              Update Password
+            </Button>
+          </Col>
+        </Row>
       </Form>
-    </div>
+    </>
   );
 };

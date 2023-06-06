@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const FavoriteMovieCard = ({ favoriteMovies, movies }) => {
   return (
@@ -8,7 +9,11 @@ export const FavoriteMovieCard = ({ favoriteMovies, movies }) => {
         <ul>
           {favoriteMovies.map((movieId) => {
             const movie = movies.find((m) => m.id === movieId);
-            return <li key={movieId}>{movie?.title}</li>;
+            return (
+              <li key={movieId}>
+                <Link to={`/movies/${movieId}`}>{movie?.title}</Link>
+              </li>
+            );
           })}
         </ul>
       ) : (

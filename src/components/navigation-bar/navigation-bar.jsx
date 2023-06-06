@@ -1,7 +1,17 @@
+import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { SearchBar } from "../search-bar/search-bar";
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
+  const location = useLocation();
+
+  const isProfileView = location.pathname.includes("/users");
+  const isLoginPage = location.pathname.includes("/login");
+  const isSignupPage = location.pathname.includes("/signup");
+
+  const showSearchBar = !isProfileView && !isLoginPage && !isSignupPage;
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -36,6 +46,11 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
               </>
             )}
           </Nav>
+          {showSearchBar && (
+            <Nav className="d-flex">
+              <SearchBar onSearch={onSearch} />
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

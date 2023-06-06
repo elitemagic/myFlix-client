@@ -6,16 +6,7 @@ import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-import {
-  Container,
-  Nav,
-  Row,
-  Col,
-  Button,
-  Card,
-  CardGroup,
-  Form,
-} from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./main-view.scss";
@@ -28,6 +19,9 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+
+  const [showSearchBar, setShowSearchBar] = useState(true);
 
   useEffect(() => {
     if (!token) return;
@@ -48,6 +42,7 @@ export const MainView = () => {
           };
         });
         setMovies(moviesFromApi);
+        setFilteredMovies(moviesFromApi);
       });
   }, [token]);
 
@@ -55,10 +50,23 @@ export const MainView = () => {
     setUser(updatedUser);
   };
 
+  const handleSearch = (query) => {
+    if (!query) {
+      setFilteredMovies(movies);
+      return;
+    }
+
+    const filteredMovies = movies.filter((movie) =>
+      movie.title.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setFilteredMovies(filteredMovies);
+  };
+
   return (
     <BrowserRouter>
       <Row>
-        <Col>
+        <>
           <NavigationBar
             user={user}
             onLoggedOut={() => {
@@ -66,8 +74,13 @@ export const MainView = () => {
               setToken(null);
               localStorage.clear();
             }}
+            onSearch={handleSearch}
+            showSearchBar={
+              showSearchBar &&
+              !["/signup", "/login"].includes(window.location.pathname)
+            }
           />
-        </Col>
+        </>
       </Row>
       <Row className="justify-content-md-center">
         <Routes>
@@ -99,6 +112,7 @@ export const MainView = () => {
               </>
             }
           />
+          // Inside MainView component
           <Route
             path="/movies/:movieId"
             element={
@@ -109,7 +123,11 @@ export const MainView = () => {
                   <Col>The list is empty</Col>
                 ) : (
                   <Col md={6}>
-                    <MovieView movies={movies} />
+                    <MovieView
+                      movies={movies}
+                      favoriteMovies={favoriteMovies}
+                      setFavoriteMovies={setFavoriteMovies}
+                    />
                   </Col>
                 )}
               </>
@@ -121,13 +139,12 @@ export const MainView = () => {
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col> The list is empty!</Col>
+                ) : filteredMovies.length === 0 ? (
+                  <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={3}>
-                        {/* Sets how many movie cards appear  */}
                         <MovieCard movie={movie} />
                       </Col>
                     ))}
@@ -153,7 +170,8 @@ export const MainView = () => {
                     }}
                     setUser={setUser}
                     onUpdateUser={handleUpdateUser}
-                    movies={movies} // Pass the favoriteMovies state as a prop
+                    movies={movies}
+                    showSearchBar={false}
                   />
                 )}
               </>

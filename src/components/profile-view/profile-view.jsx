@@ -1,9 +1,10 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 
 import { FavoriteMovieCard } from "./favorite-movie-card";
 import { UpdateUser } from "./update-user";
+
+import "./profile-view.scss";
 
 export const ProfileView = ({ user, token, onLoggedOut, setUser, movies }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -82,10 +83,10 @@ export const ProfileView = ({ user, token, onLoggedOut, setUser, movies }) => {
                 <span className="font-weight-bold">Email: </span>
                 {user.Email}
               </p>
-              {user.Birthday && (
+              {user.Birthdate && (
                 <p>
-                  <span className="font-weight-bold">Birthday: </span>
-                  {new Date(user.Birthday).toLocaleDateString()}
+                  <span className="font-weight-bold">Birthdate: </span>
+                  {new Date(user.Birthdate).toLocaleDateString()}
                 </p>
               )}
             </Col>
@@ -104,7 +105,7 @@ export const ProfileView = ({ user, token, onLoggedOut, setUser, movies }) => {
               </div>
             </Col>
           </Row>
-          <Row>
+          <Row className="mt-12">
             <Col md={2}>
               <Button
                 variant="primary"

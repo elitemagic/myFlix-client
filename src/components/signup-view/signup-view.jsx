@@ -25,7 +25,7 @@ export const SignupView = () => {
       Birthday: birthday,
     };
 
-    fetch("https://my-flix-service.onrender.com/login", {
+    fetch("https://my-flix-service.onrender.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -88,13 +88,22 @@ export const SignupView = () => {
                     />
                   </Form.Group>
 
+                  <Form.Group controlId="formEmail">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control
+                      type="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+
                   <Form.Group controlId="formBirthday">
                     <Form.Label>Birthday:</Form.Label>
                     <Form.Control
                       type="Date"
                       value={birthday}
                       onChange={(e) => setBirthday(e.target.value)}
-                      required
                     />
                   </Form.Group>
 
