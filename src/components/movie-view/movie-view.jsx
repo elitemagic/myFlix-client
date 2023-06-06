@@ -76,6 +76,7 @@ export const MovieView = ({ movies, favoriteMovies, setFavoriteMovies }) => {
   return (
     <>
       <Container
+        className="movie-view-container"
         style={{
           position: "relative",
           margin: "25px auto",

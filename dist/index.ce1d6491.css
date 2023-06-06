@@ -12023,10 +12023,11 @@ a.card-link {
   padding: 4px 12px;
 }
 
-.logout-btn {
-  width: 100%;
-  max-width: 200px;
+.movie-view-container {
+  background-color: #f0fff0;
 }
+
+
 
 
 
