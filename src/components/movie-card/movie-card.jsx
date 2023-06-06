@@ -8,7 +8,10 @@ import "./movie-card.scss";
 export const MovieCard = ({ movie }) => {
   return (
     <Link to={`/movies/${encodeURIComponent(movie.id)}`} className="card-link">
-      <Card style={{ height: "400px" }} className="border-0" bg="Honeydew">
+      <Card
+        style={{ height: "400px", backgroundColor: "Honeydew" }}
+        className="border-0"
+      >
         <Card.Img
           variant="top"
           src={movie.image}
