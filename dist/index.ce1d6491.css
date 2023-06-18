@@ -12015,6 +12015,10 @@ a.card-link {
   text-decoration: none !important;
 }
 
+.movie-view-container {
+  background-color: #f0fff0;
+}
+
 .my-4 {
   color: #f5f5f5;
   background-color: #1e90ff;

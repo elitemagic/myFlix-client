@@ -45,7 +45,7 @@ export const SignupView = () => {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
             alert("Signup successful");
-            window.location.replace("/movies");
+            window.location.replace("https://my-flixie-appie.netlify.app/");
           });
       } else {
         alert("Signup failed");
